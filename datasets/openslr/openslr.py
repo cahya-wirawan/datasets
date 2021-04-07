@@ -18,6 +18,7 @@ from __future__ import absolute_import, division, print_function
 
 import os
 import re
+from pathlib import Path
 
 import datasets
 
@@ -39,6 +40,30 @@ _HOMEPAGE = "https://openslr.org/"
 _LICENSE = ""
 
 _RESOURCES = {
+    "SLR35": {
+        "Language": "Javanese",
+        "LongName": "Large Javanese ASR training data set",
+        "Category": "Speech",
+        "Summary": "Javanese ASR training data set containing ~185K utterances",
+        "Files": ["asr_javanese_0.zip", "asr_javanese_1.zip", "asr_javanese_2.zip", "asr_javanese_3.zip",
+                  "asr_javanese_4.zip", "asr_javanese_5.zip", "asr_javanese_6.zip", "asr_javanese_7.zip",
+                  "asr_javanese_8.zip", "asr_javanese_9.zip", "asr_javanese_a.zip", "asr_javanese_b.zip",
+                  "asr_javanese_c.zip", "asr_javanese_d.zip", "asr_javanese_e.zip", "asr_javanese_f.zip"],
+        "IndexFiles": ["asr_javanese/utt_spk_text.tsv"]*16,
+        "DataDirs": ["asr_javanese/data"]*16,
+    },
+    "SLR36": {
+        "Language": "Sundanese",
+        "LongName": "Large Sundanese ASR training data set",
+        "Category": "Speech",
+        "Summary": "Sundanese ASR training data set containing ~220K utterances",
+        "Files": ["asr_sundanese_0.zip", "asr_sundanese_1.zip", "asr_sundanese_2.zip", "asr_sundanese_3.zip",
+                  "asr_sundanese_4.zip", "asr_sundanese_5.zip", "asr_sundanese_6.zip", "asr_sundanese_7.zip",
+                  "asr_sundanese_8.zip", "asr_sundanese_9.zip", "asr_sundanese_a.zip", "asr_sundanese_b.zip",
+                  "asr_sundanese_c.zip", "asr_sundanese_d.zip", "asr_sundanese_e.zip", "asr_sundanese_f.zip"],
+        "IndexFiles": ["asr_sundanese/utt_spk_text.tsv"]*16,
+        "DataDirs": ["asr_sundanese/data"]*16,
+    },
     "SLR41": {
         "Language": "Javanese",
         "LongName": "High quality TTS data for Javanese",
@@ -201,18 +226,36 @@ class OpenSlr(datasets.GeneratorBasedBuilder):
         """ Yields examples. """
 
         counter = -1
-        for i, path in enumerate(path_to_indexs):
-            with open(path, encoding="utf-8") as f:
-                lines = f.readlines()
-                for id_, line in enumerate(lines):
-                    # Following regexs are needed to normalise the lines, since the datasets
-                    # are not always consistent and have bugs:
-                    line = re.sub(r"\t[^\t]*\t", "\t", line.strip())
-                    field_values = re.split(r"\t\t?", line)
-                    if len(field_values) != 2:
+        if self.config.name in ["SLR35", "SLR36"]:
+            sentence_index = {}
+            for i, path in enumerate(path_to_indexs):
+                with open(path, encoding="utf-8") as f:
+                    lines = f.readlines()
+                    for id_, line in enumerate(lines):
+                        field_values = re.split(r"\t\t?", line.strip())
+                        filename, user_id, sentence = field_values
+                        sentence_index[filename] = sentence
+                for p in Path(path_to_datas[i]).rglob("*.flac"):
+                    filename = p.stem
+                    if p.stem not in sentence_index:
                         continue
-                    filename, sentence = field_values
-                    # set absolute path for audio file
-                    path = os.path.join(path_to_datas[i], f"{filename}.wav")
+                    path = str(p.resolve())
+                    sentence = sentence_index[filename]
                     counter += 1
                     yield counter, {"path": path, "sentence": sentence}
+        else:
+            for i, path in enumerate(path_to_indexs):
+                with open(path, encoding="utf-8") as f:
+                    lines = f.readlines()
+                    for id_, line in enumerate(lines):
+                        # Following regexs are needed to normalise the lines, since the datasets
+                        # are not always consistent and have bugs:
+                        line = re.sub(r"\t[^\t]*\t", "\t", line.strip())
+                        field_values = re.split(r"\t\t?", line)
+                        if len(field_values) != 2:
+                            continue
+                        filename, sentence = field_values
+                        # set absolute path for audio file
+                        path = os.path.join(path_to_datas[i], f"{filename}.wav")
+                        counter += 1
+                        yield counter, {"path": path, "sentence": sentence}
