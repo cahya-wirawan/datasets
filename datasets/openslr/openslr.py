@@ -26,6 +26,18 @@ import datasets
 _DATA_URL = "https://openslr.org/resources/{}"
 
 _CITATION = """\
+SLR35, SLR36:
+@inproceedings{kjartansson-etal-sltu2018,
+    title = {{Crowd-Sourced Speech Corpora for Javanese, Sundanese,  Sinhala, Nepali, and Bangladeshi Bengali}},
+    author = {Oddur Kjartansson and Supheakmungkol Sarin and Knot Pipatsrisawat and Martin Jansche and Linne Ha},
+    booktitle = {Proc. The 6th Intl. Workshop on Spoken Language Technologies for Under-Resourced Languages (SLTU)},
+    year  = {2018},
+    address = {Gurugram, India},
+    month = aug,
+    pages = {52--55},
+    URL   = {http://dx.doi.org/10.21437/SLTU.2018-11},
+}
+  
 SLR41, SLR42, SLR43, SLR44:
 @inproceedings{kjartansson-etal-tts-sltu2018,
     title = {{A Step-by-Step Process for Building TTS Voices Using Open Source Data and Framework for Bangla, Javanese, Khmer, Nepali, Sinhala, and Sundanese}},

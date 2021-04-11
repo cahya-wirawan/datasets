@@ -75,7 +75,7 @@ This dataset was collected by Google in collaboration with Reykjavik University 
 in Indonesia.
 
 The dataset is distributed under Creative Commons Attribution-ShareAlike 4.0 International Public License.
-See [LICENSE](https://www.openslr.org/resources/41/LICENSE) file and 
+See [LICENSE](https://www.openslr.org/resources/35/LICENSE) file and 
 https://github.com/google/language-resources#license for license information.
 
 Copyright 2016, 2017 Google, Inc.
@@ -89,7 +89,7 @@ The data set has been manually quality checked, but there might still be errors.
 This dataset was collected by Google in Indonesia.
 
 The dataset is distributed under Creative Commons Attribution-ShareAlike 4.0 International Public License.
-See [LICENSE](https://www.openslr.org/resources/41/LICENSE) file and 
+See [LICENSE](https://www.openslr.org/resources/36/LICENSE) file and 
 https://github.com/google/language-resources#license for license information.
 
 Copyright 2016, 2017 Google, Inc.
