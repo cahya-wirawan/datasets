@@ -48,12 +48,11 @@ paperswithcode_id: null
 
 ## Dataset Description
 
-- **Homepage:** [IndoLEM (Indonesian Language Evaluation Montage)](https://indolem.github.io/)
-- **Repository:** [Liputan6: Summarization Corpus for Indonesian](https://github.com/fajri91/sum_liputan6/)
-- **Paper:** https://arxiv.org/abs/2011.00679
+- **Homepage:** 
+- **Repository:** 
+- **Paper:** 
 - **Leaderboard:**
-- **Point of Contact:** [Fajri Koto](mailto:feryandi.n@gmail.com),
-[Jey Han Lau](mailto:jeyhan.lau@gmail.com), [Timothy Baldwin](mailto:tbaldwin@unimelb.edu.au), 
+- **Point of Contact:** 
 
 ### Dataset Summary
 
